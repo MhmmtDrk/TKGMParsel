@@ -1,0 +1,264 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<head>
+    <style>
+    .sidebar {
+  margin: 0;
+  padding: 0;
+  
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+select, input, button {
+width: -webkit-fill-available;
+}
+
+@@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar input {float: left;}
+  .sidebar select {float: left;}
+}
+#tblData tbody tr td{
+       border: 1px solid #ddd;     
+}
+    </style>
+
+
+</head>
+@section Scripts{
+<script>
+    $(document).ready(function () {
+       
+        var CityVal = $("#DrpCities").val();
+
+       
+        $.ajax({           
+            type: 'POST',
+             
+            dataType:'json',
+            url: '/Home/GetDistrict',
+            data: {cityVal:CityVal},
+            success: function (data) {   
+                console.log(data);
+                for (const district of data) {  
+                    
+                    $('#DrpDistricts')
+                        .append($("<option></option>")
+                            .attr("value", district.tkgmValue)
+                            .text(district.name));
+                }
+            },
+            error: function () {
+                alert('İstek işlenirken hata meydana geldi.');
+            }
+        });
+
+
+        $("#DrpCities").change(function () {
+           var CityVal = $("#DrpCities").val();
+            $('#DrpDistricts')
+                .find('option')
+                .remove();
+            $('#DrpDistricts')
+                .append($("<option></option>")
+                    .attr("value", 0)
+                    .text(":::İlçe Seçiniz:::"));
+            $('#DrpStreets')
+                .find('option')
+                .remove();
+            $('#DrpStreets')
+                .append($("<option></option>")
+                    .attr("value", 0)
+                    .text(":::Mahalle Seçiniz:::"));
+                $.ajax({
+                    type: 'POST',
+
+                    dataType: 'json',
+                    url: '/Home/GetDistrict',
+                    data: { cityVal: CityVal },
+                    success: function (data) {
+                        console.log(data);
+                        for (const district of data) {
+                            $('#DrpDistricts')
+                                .append($("<option></option>")
+                                    .attr("value", district.tkgmValue)
+                                    .text(district.name));
+                        }
+                    },
+                    error: function () {
+                        alert('İstek işlenirken hata meydana geldi.');
+                    }
+                });
+        });
+            
+            $("#DrpDistricts").change(function () {
+                
+                var DistrictVal = $("#DrpDistricts").val();
+                if (DistrictVal==0)
+                {
+                    $(this).css("border","1px solid red");
+                }
+                else{
+                    $(this).css("border", "");
+                }
+                var CityVal = $("#DrpCities").val();
+                $('#DrpStreets')
+                    .find('option')
+                    .remove();
+                $('#DrpStreets')
+                    .append($("<option></option>")
+                        .attr("value", 0)
+                        .text(":::Mahalle Seçiniz:::"));
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/Home/GetStreet',
+                    data: { districtVal: DistrictVal },
+                    success: function (data) {
+                        console.log(data.length);
+                        for (const street of data) {
+
+                            $('#DrpStreets')
+                                .append($("<option></option>")
+                                    .attr("value", street.tkgmValue)
+                                    .text(street.name));
+                        }
+                    },
+                    error: function () {
+                        alert('İstek işlenirken hata meydana geldi.');
+                    }
+                });
+            });
+            $("#DrpStreets").change(function () {
+
+                var StreetVal = $("#DrpStreets").val();
+                if (StreetVal==0)
+                {
+                    $(this).css("border","1px solid red");
+                }
+                else{
+                    $(this).css("border", "");
+                }
+                
+            });
+           function Validate()
+           {
+               var IsEmpty=false;
+                $(".sidebar select").each(function(){
+                var val=$(this).val();
+               
+                    if(val==0)
+                    {
+                        $(this).css("border","1px solid red");
+                        IsEmpty=false;
+                    }
+                    else
+                    {
+                        $(this).css("border", "");
+                    }
+                })
+                $(".sidebar input:text").each(function () {
+                    var val = $(this).val();
+                    if (val =='') {
+                        $(this).css("border-color", "red");
+                        IsEmpty = false;
+                    }
+                    else
+                    {
+                        $(this).css("border-color", "");
+                    }
+                })
+                return IsEmpty;
+
+           }
+
+            $("#btnGetData").click(function(){
+                if (Validate()==false)
+                {
+                    $("#tblData tbody").empty();
+                  
+                
+                    var StreetVal = $("#DrpStreets").val();
+                    var AdaVal = $("#inpAda").val();
+                    var ParcelVal = $("#inpParselNo").val();
+                    var model = { StreetVal: StreetVal, ParcelVal: ParcelVal, AdaVal: AdaVal };    
+                    
+                    console.log(model);
+                    $.ajax({
+                        type: 'POST',        
+                   
+                        url: '/Home/GetData',
+                        data: model,
+                        //contentType: "application/json; charset=utf-8",
+                        //dataType: "text",
+                        success: function (data) {
+                            console.log(data);
+                            var Content="";
+                            if(data==null)
+                            {
+                                Content = `<tr><td style='font-weight:700;text-align:center;color:red'><i class="bi bi-search"></i> Kayıt Bulunamadı</td></tr>`
+                            }
+                            else
+                            {
+                                Content = `<tr><td style='font-weight:700;'>Taşınmaz No</td><td>${data.zeminId}</td></tr>
+                                                <tr><td>İl</td><td>${data.ilAd}</td></tr>
+                                                <tr><td>İlçe</td><td>${data.ilceAd}</td></tr>
+                                                <tr><td>Mahalle/Köy</td><td>${data.mahalleAd}</td></tr>
+                                                <tr><td>Mahalle No</td><td>${data.mahalleId}</td></tr>
+                                                <tr><td>Ada</td><td>${data.adaNo}</td></tr>
+                                                <tr><td>Parsel</td><td>${data.parselNo}</td></tr>
+                                                <tr><td>Tapu Alanı</td><td>${data.alan}</td></tr>
+                                                <tr><td>Nitelik</td><td>${data.nitelik}</td></tr>
+                                                <tr><td>Mevkii</td><td>${data.mevkii}</td></tr>
+                                                <tr><td>Zemin Tip</td><td>${data.zeminKmdurum}</td></tr>
+                                                <tr><td>Pafta</td><td>${data.pafta}</td></tr>
+                                `
+                               
+                            }
+                            jQuery("#tblData tbody").append(Content);
+                        },
+                        error: function () {
+                            alert('İstek işlenirken hata meydana geldi.');
+                        }
+                    });
+                }
+            })
+        
+    });
+</script>
+}
+  
+<div class="sidebar col-md-2">
+    <div class="p-2"><select id="DrpCities" asp-items='ViewBag.Cities' class="form-select form-select-sm " ></select></div>
+    <div class="p-2"><select id="DrpDistricts" class="form-select form-select-sm ml-3"><option value="0">:::İlçe Seçiniz:::</option></select></div>
+    <div class="p-2"> <select id="DrpStreets" class="form-select form-select-sm ml-3"><option value="0">:::Mahalle Seçiniz:::</option></select></div>
+    <div class="p-2"><input type="text" class="form-control form-control-sm" id="inpAda" placeholder="Ada"/></div>
+    <div class="p-2"><input type="text" class="form-control form-control-sm" id="inpParselNo" placeholder="Parsel"/></div>
+        <div class="p-2"><button type="button" class="btn btn-sm btn-success" id="btnGetData" data-bs-toggle="modal" data-bs-target="#ModalData">Sorgula</button></div>
+ </div>
+ <div class="modal fade" id="ModalData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#337ab7">
+                <h5 class="modal-title" id="exampleModalLabel" style="width: -webkit-fill-available;text-align: center;color:white">Öz Nitelik Bilgisi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" id="tblData">
+                    <tbody>    
+                    </tbody>
+                </table>
+            </div>      
+        </div>
+    </div>
+</div>
+  @*  https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/parsel/46144/236/32*@
