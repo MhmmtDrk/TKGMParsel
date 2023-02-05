@@ -1,0 +1,14 @@
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\bin\Debug\net6.0\TKGMParsel.Data.deps.json
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\bin\Debug\net6.0\TKGMParsel.Data.runtimeconfig.json
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\bin\Debug\net6.0\TKGMParsel.Data.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\bin\Debug\net6.0\TKGMParsel.Data.pdb
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.AssemblyInfo.cs
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\refint\TKGMParsel.Data.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.pdb
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\TKGMParsel.Data.genruntimeconfig.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Data\obj\Debug\net6.0\ref\TKGMParsel.Data.dll

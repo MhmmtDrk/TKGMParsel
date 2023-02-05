@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\bin\Release\net6.0\TKGMParsel.Business.deps.json
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\bin\Release\net6.0\TKGMParsel.Business.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\bin\Release\net6.0\TKGMParsel.Business.pdb
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\bin\Release\net6.0\TKGMParsel.Data.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\bin\Release\net6.0\TKGMParsel.Data.pdb
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.AssemblyInfo.cs
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.csproj.CopyComplete
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\refint\TKGMParsel.Business.dll
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\TKGMParsel.Business.pdb
+C:\Users\user\source\repos\TKGMParsel\TKGMParsel.Business\obj\Release\net6.0\ref\TKGMParsel.Business.dll
