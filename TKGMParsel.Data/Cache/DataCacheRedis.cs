@@ -14,14 +14,12 @@ namespace TKGMParsel.Data.Cache
         private static Lazy<ConnectionMultiplexer> _connection;
         public static IConfiguration _configuration;
         public string redisConnection;
-
         public DataCacheRedis(IConfiguration configuration)
         {
             _configuration = configuration;
             redisConnection = _configuration.GetConnectionString("RedisCS");
             CreateRedisDB(redisConnection);
         }
-
         private static IDatabase CreateRedisDB(string conn)
         {
             if (null == _db)
@@ -29,27 +27,8 @@ namespace TKGMParsel.Data.Cache
                 _connection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(conn));
                 _db = _connection.Value.GetDatabase();
             }
-
             return _db;
         }
-
-        public void Clear()
-        {
-            try
-            {
-                if (_connection.Value.IsConnected)
-                {
-                    var server = _db.Multiplexer.GetServer(redisConnection.Split(',')[0].ToString());
-                    foreach (var item in server.Keys())
-                        _db.KeyDelete(item);
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
         public T Get<T>(string key)
         {
             try
@@ -69,8 +48,7 @@ namespace TKGMParsel.Data.Cache
             {
                 return default(T);
             }
-        }
-        
+        }        
         public bool Remove(string key)
         {
             try
@@ -85,9 +63,7 @@ namespace TKGMParsel.Data.Cache
             {
                 return false;
             }
-        }
-
-        
+        }        
         public void Set(string key, object data)
         {
             try
@@ -123,11 +99,7 @@ namespace TKGMParsel.Data.Cache
             {
 
             }
-        }
-
-       
-
-       
+        }      
         protected virtual byte[] Serialize(object item)
         {
             var jsonString = JsonConvert.SerializeObject(item);
