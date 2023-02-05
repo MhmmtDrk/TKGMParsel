@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TKGMParsel", "TKGMParsel\TKGMParsel.csproj", "{64AD1921-711F-41C7-8E8A-B4DAC31CC50E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TKGMParsel", "TKGMParsel\TKGMParsel.csproj", "{64AD1921-711F-41C7-8E8A-B4DAC31CC50E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TKGMParsel.Data", "TKGMParsel.Data\TKGMParsel.Data.csproj", "{6FE869FF-71E2-4B7C-A734-6B4CB0A73E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TKGMParsel.Data", "TKGMParsel.Data\TKGMParsel.Data.csproj", "{6FE869FF-71E2-4B7C-A734-6B4CB0A73E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TKGMParsel.Business", "TKGMParsel.Business\TKGMParsel.Business.csproj", "{6FE5F1D2-E341-4505-B5D7-B4B7EBC67FF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TKGMParsel.Business", "TKGMParsel.Business\TKGMParsel.Business.csproj", "{6FE5F1D2-E341-4505-B5D7-B4B7EBC67FF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A009250-B823-4E1C-AF0E-C2F35796976C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
