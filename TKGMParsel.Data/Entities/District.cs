@@ -22,6 +22,5 @@ namespace TKGMParsel.Data.Entities
         public int CityId { get; set; }
         public City City { get; set; }
         public ICollection<Street> Streets { get; set; }
-
     }
 }
