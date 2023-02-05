@@ -11,7 +11,6 @@ namespace TKGMParsel.Data.Contexts
 {
     public class Context:DbContext
     {
-
         public DbSet<City> City { get; set; }
         public DbSet<District> District { get; set; }
         public DbSet<Street> Street { get; set; }
