@@ -4055,10 +4055,11 @@ textarea.form-control-lg {
 }
 
 @media (min-width: 576px) {
-  .navbar-expand-sm {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-  }
+    .navbar-expand-sm {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        background: linear-gradient(to right, #4b6cb7, #182848);
+    }
   .navbar-expand-sm .navbar-nav {
     flex-direction: row;
   }
@@ -4372,7 +4373,7 @@ textarea.form-control-lg {
 }
 
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  color: white;
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);

@@ -70,41 +70,7 @@ namespace TKGMParsel.Data.Cache
                 return default(T);
             }
         }
-        //public T GetString<T>(string key)
-        //{
-        //    try
-        //    {
-        //        if (_connection.Value.IsConnected)
-        //        {
-        //            var value = _db.StringGet(key);
-        //            if (!value.IsNull)
-        //                return JsonConvert.DeserializeObject<T>(value);
-        //            else return default(T);
-        //        }
-        //        else return default(T);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        //public bool IsSet(string key)
-        //{
-        //    try
-        //    {
-        //        if (_connection.Value.IsConnected)
-        //        {
-        //            return _db.KeyExists(key);
-        //        }
-        //        else return false;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
-
+        
         public bool Remove(string key)
         {
             try
@@ -121,25 +87,7 @@ namespace TKGMParsel.Data.Cache
             }
         }
 
-        //public void RemoveByPattern(string pattern)
-        //{
-        //    _ = Task.Run(() =>
-        //    {
-        //        try
-        //        {
-        //            if (!_connection.Value.IsConnected) return;
-        //            var server = _db.Multiplexer.GetServer(redisConnection.Split(',')[0].ToString());
-        //            foreach (var item in server.Keys(Convert.ToInt32(redisConnection.Split(',')[5].ToString().Split('=')[1]), pattern: "" + pattern + ""))
-        //                _db.KeyDelete(item);
-        //        }
-        //        catch (Exception)
-        //        {
-
-        //        }
-        //    }).ConfigureAwait(false);
-
-        //}
-
+        
         public void Set(string key, object data)
         {
             try
@@ -177,53 +125,9 @@ namespace TKGMParsel.Data.Cache
             }
         }
 
-        //public void SetString(string key, object data)
-        //{
-        //    try
-        //    {
-        //        SetString(key, data, DateTime.Now.AddDays(7));
-        //        //if (_connection.Value.IsConnected)
-        //        //{
-        //        //    if (data == null)
-        //        //        return;
+       
 
-        //        //    _db.StringSet(key, JsonConvert.SerializeObject(data));
-        //        //    var expiresIn = DateTime.Now.AddDays(30);
-        //        //    _db.KeyExpire(key, expiresIn);
-        //        //}
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-        //}
-        //public void SetString(string key, object data, DateTime exDate)
-        //{
-        //    try
-        //    {
-        //        if (_connection.Value.IsConnected)
-        //        {
-        //            if (data == null)
-        //                return;
-
-        //            var date = DateTime.Now;
-        //            if (exDate > date)
-        //            {
-        //                var time = exDate.TimeOfDay - date.TimeOfDay;
-        //                _db.StringSet(key, JsonConvert.SerializeObject(data), time);
-
-        //            }
-        //            else
-        //                _db.StringSet(key, JsonConvert.SerializeObject(data));
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-        //}
-
-        //<-- Begin Cache Helper -->
+       
         protected virtual byte[] Serialize(object item)
         {
             var jsonString = JsonConvert.SerializeObject(item);

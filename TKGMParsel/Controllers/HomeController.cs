@@ -76,23 +76,18 @@ namespace TKGMParsel.Controllers
                         DistrictModel.Name = item.text;
                         DistrictModel.TKGMValue = item.id;
                         DistrictModel.TKGMCityValue = cityVal;
-                       
+                        DistrictModel.CityId = FindCityId;
                         ModelList.Add(DistrictModel);
-
                     }
                     _repoDistrict.CreateAll(ModelList);
                 }
-
                 var Result = _repoDistrict.GetAll().Where(x => x.City.TKGMValue == cityVal);
                 return Json(Result);
             }
             catch (Exception ex)
             {
                 return Json("Error");
-            }
-
-            //var ServiceLogList = db.ServiceLogs.ToList();
-            //return View(ServiceLogList);
+            }            
         }
         [HttpPost]
         public JsonResult GetStreet(int districtVal)
@@ -117,18 +112,13 @@ namespace TKGMParsel.Controllers
                     }
                     _repoStreet.CreateAll(ModelList);
                 }
-
                 var Result = _repoStreet.GetAll().Where(x => x.District.TKGMValue == districtVal);
-
                 return Json(Result);
             }
             catch (Exception ex)
             {
                 return Json("Error");
             }
-
-            //var ServiceLogList = db.ServiceLogs.ToList();
-            //return View(ServiceLogList);
         }
         [HttpPost]
         public JsonResult GetData(GetDataModel model)
@@ -147,7 +137,6 @@ namespace TKGMParsel.Controllers
                         {
                             return Json(null);
                         }
-
                         var ModelJson = JsonConvert.DeserializeObject<ParselDataModel>(Model);
                         Parcel pModel = new Parcel();
                         pModel.ilceAd = ModelJson.properties.ilceAd;
@@ -190,10 +179,6 @@ namespace TKGMParsel.Controllers
             {
                 return Json("Error");
             }
-
-
-
-
         }
         public async Task<string> GetResponseJSON(string url)
         {
@@ -202,8 +187,8 @@ namespace TKGMParsel.Controllers
                 client.BaseAddress = new Uri(url);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
                 System.Net.Http.HttpResponseMessage response = client.GetAsync(url).Result;
+
                 if (response.IsSuccessStatusCode)
                 {
                     var data = await response.Content.ReadAsStringAsync();
