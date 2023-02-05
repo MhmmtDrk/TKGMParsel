@@ -11,13 +11,11 @@
         public string type { get; set; }
         public float[][][] coordinates { get; set; }
     }
-
     public class PropertiesParsel
     {
 
         public string ilceAd { get; set; }
         public string mevkii { get; set; }
-
         public int ilId { get; set; }
         public string durum { get; set; }
         public int parselId { get; set; }

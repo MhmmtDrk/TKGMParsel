@@ -16,17 +16,13 @@ namespace TKGMParsel.Data.Entities
         public int Id { get; set; }
         [StringLength(50), Column(TypeName = "Varchar(50)")]
         public string? Name { get; set; }
-
         [Column(TypeName = "int")]
      
         public int? TKGMValue { get; set; }
-
         [Column(TypeName = "int")]
         public int? TKGMCityValue { get; set; }
-
         public int CityId { get; set; }
         public City City { get; set; }
-
         public ICollection<Street> Streets { get; set; }
 
     }

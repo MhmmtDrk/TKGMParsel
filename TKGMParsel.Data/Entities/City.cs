@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TKGMParsel.Data.Entities
-{
-    
+{    
     public  class City
     {
         [Key]

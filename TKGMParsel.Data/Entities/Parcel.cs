@@ -13,7 +13,6 @@ namespace TKGMParsel.Data.Entities
         public int Id { get; set; }
         public string? ilceAd { get; set; }
         public string? mevkii { get; set; }
-
         public int? ilId { get; set; }
         public string? durum { get; set; }
         public int? parselId { get; set; }
