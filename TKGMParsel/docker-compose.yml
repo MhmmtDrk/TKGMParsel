@@ -2,17 +2,13 @@ version: '3.4'
 services:
    mssql-server:
       image: mcr.microsoft.com/mssql/server:2019-latest
-environment:
-ACCEPT_EULA: "Y"
-SA_PASSWORD: "Fener1907"
-MSSQL_PID: Express
-ports:
-- "1433:1433"
-tkgmparsel: 
-build: .
-ports:
-- "8090:80"
-	
-
-  
- 
+      environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "Fener1907"
+        MSSQL_PID: Express
+      ports:
+        - "1433:1433"
+   parsel: 
+    build: .
+    ports:
+        - "8080:80"

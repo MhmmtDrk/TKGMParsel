@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,21 @@ namespace TKGMParsel.Business.Repositories
 {
     public class WebRepository<T> where T:class
     {
-        private readonly Context db;
+        private  Context db;
         private DbSet<T> entities;
-        public WebRepository(Context _db)
+        private IConfiguration configuration;
+        public WebRepository(Context _db, IConfiguration _configuration)
         {
             db= _db;
             entities=db.Set<T>();
+            configuration= _configuration;
             
+        }
+        private DbContextOptions<Context> GetAllOptions()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<Context>();
+            optionBuilder.UseSqlServer(configuration.GetConnectionString("WebCS"));
+            return optionBuilder.Options;
         }
         public  IQueryable<T> GetAll()
         {
@@ -28,29 +37,47 @@ namespace TKGMParsel.Business.Repositories
         }
         public City? GetByIdCity(int TKGMValue)
         {
-            return db.City.Where(x => x.TKGMValue == TKGMValue).FirstOrDefault();
+            using (db = new Context(GetAllOptions()))
+            {
+                return db.City.Where(x => x.TKGMValue == TKGMValue).FirstOrDefault();
+            }
         }
         public IEnumerable<District> GetByCityValDistrictList(int cityVal)
         {
-            return db.District.Where(x => x.City.TKGMValue == cityVal).ToList();
+            using (db = new Context(GetAllOptions()))
+            {
+                return db.District.Where(x => x.City.TKGMValue == cityVal).ToList();
+            }
         }
         public IEnumerable<Street> GetByDistrictValStreetList(int districtVal)
         {
-            return db.Street.Where(x => x.District.TKGMValue == districtVal).ToList();            
+            using (db = new Context(GetAllOptions()))
+            {
+                return db.Street.Where(x => x.District.TKGMValue == districtVal).ToList();
+            }
         }
         public Parcel? GetByStreetParsel(int streetVal,string adaVal, string parcelVal)
         {
-            return db.Parsel.Where(x => x.mahalleId == streetVal && x.parselNo==parcelVal && x.adaNo==adaVal).FirstOrDefault();
+            using (db = new Context(GetAllOptions()))
+            {
+                return db.Parsel.Where(x => x.mahalleId == streetVal && x.parselNo == parcelVal && x.adaNo == adaVal).FirstOrDefault();
+            }
         }        
         public void Create(T entity)
-        {            
-            db.Set<T>().Add(entity);
-            db.SaveChanges();            
+        {
+            using (db = new Context(GetAllOptions()))
+            {
+                db.Set<T>().Add(entity);
+                db.SaveChanges();
+            }
         }
         public  void CreateAll(IEnumerable<T> entity)
-        {             
+        {
+            using (db = new Context(GetAllOptions()))
+            {
                 db.Set<T>().AddRange(entity);
-                db.SaveChanges();  
+                db.SaveChanges();
+            }
         }
     }
 }

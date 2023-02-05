@@ -109,34 +109,35 @@ width: -webkit-fill-available;
                 }
                 else{
                     $(this).css("border", "");
-                }
-                var CityVal = $("#DrpCities").val();
-                $('#DrpStreets')
-                    .find('option')
-                    .remove();
-                $('#DrpStreets')
-                    .append($("<option></option>")
-                        .attr("value", 0)
-                        .text(":::Mahalle Seçiniz:::"));
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: '/Home/GetStreet',
-                    data: { districtVal: DistrictVal },
-                    success: function (data) {
-                        console.log(data.length);
-                        for (const street of data) {
+                    var CityVal = $("#DrpCities").val();
+                    $('#DrpStreets')
+                        .find('option')
+                        .remove();
+                    $('#DrpStreets')
+                        .append($("<option></option>")
+                            .attr("value", 0)
+                            .text(":::Mahalle Seçiniz:::"));
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '/Home/GetStreet',
+                        data: { districtVal: DistrictVal },
+                        success: function (data) {
+                            console.log(data.length);
+                            for (const street of data) {
 
-                            $('#DrpStreets')
-                                .append($("<option></option>")
-                                    .attr("value", street.tkgmValue)
-                                    .text(street.name));
+                                $('#DrpStreets')
+                                    .append($("<option></option>")
+                                        .attr("value", street.tkgmValue)
+                                        .text(street.name));
+                            }
+                        },
+                        error: function () {
+                            alert('İstek işlenirken hata meydana geldi.');
                         }
-                    },
-                    error: function () {
-                        alert('İstek işlenirken hata meydana geldi.');
-                    }
-                });
+                    });
+                }
+
             });
             $("#DrpStreets").change(function () {
 
