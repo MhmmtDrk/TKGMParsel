@@ -18,7 +18,8 @@ namespace TKGMParsel.Controllers
         WebRepository<Street> _repoStreet;
         WebRepository<Parcel> _repoParcel;
         private readonly DataCacheRedis _dataCacheRedis;
-        public HomeController(ILogger<HomeController> logger, WebRepository<City> repoCity, WebRepository<District> repoDistrict, WebRepository<Street> repoStreet, WebRepository<Parcel> repoParcel, DataCacheRedis dataCacheRedis)
+        private IConfiguration _configuration;
+        public HomeController(ILogger<HomeController> logger, WebRepository<City> repoCity, WebRepository<District> repoDistrict, WebRepository<Street> repoStreet, WebRepository<Parcel> repoParcel, DataCacheRedis dataCacheRedis, IConfiguration configuration)
         {
             _logger = logger;
             _repoCity = repoCity;
@@ -26,6 +27,7 @@ namespace TKGMParsel.Controllers
             _repoStreet = repoStreet;
             _repoParcel = repoParcel;
             _dataCacheRedis = dataCacheRedis;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -35,7 +37,7 @@ namespace TKGMParsel.Controllers
                 var FindCity = _repoCity.GetAll().FirstOrDefault();
                 if (FindCity == null)
                 {
-                    var Model = GetResponseJSON("https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/idariYapi/ilListe").Result;
+                    var Model = GetResponseJSON(_configuration.GetSection("TKGMApiURL").GetValue("Il","Il")).Result;
                     var ModelJson = JsonConvert.DeserializeObject<ParselModel>(Model);
                     List<City> ModelList = new List<City>();
                     foreach (var item in ModelJson.features.Select(x => x.properties))
@@ -66,7 +68,7 @@ namespace TKGMParsel.Controllers
                 var FindDistrict = _repoDistrict.GetByCityValDistrictList(cityVal).FirstOrDefault();
                 if (FindDistrict == null)
                 {
-                    var Model = GetResponseJSON($"https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api//idariYapi/ilceListe/{cityVal}").Result;
+                    var Model = GetResponseJSON($"{_configuration.GetSection("TKGMApiURL").GetValue("Ilce","Ilce")}{cityVal}").Result;
                     var ModelJson = JsonConvert.DeserializeObject<ParselModel>(Model);
                     var FindCityId = _repoCity.GetAll().Where(x => x.TKGMValue == cityVal).Select(x => x.Id).FirstOrDefault();
                     List<District> ModelList = new List<District>();
@@ -97,7 +99,7 @@ namespace TKGMParsel.Controllers
                 var FindStreet = _repoStreet.GetByDistrictValStreetList(districtVal).FirstOrDefault();
                 if (FindStreet == null)
                 {
-                    var Model = GetResponseJSON($"https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/idariYapi/mahalleListe/{districtVal}").Result;
+                    var Model = GetResponseJSON($"{_configuration.GetSection("TKGMApiURL").GetValue("Mahalle", "Mahalle")}{districtVal}").Result;
                     var ModelJson = JsonConvert.DeserializeObject<ParselModel>(Model);
                     var FindDistrictId = _repoDistrict.GetAll().Where(x => x.TKGMValue == districtVal).Select(x => x.Id).FirstOrDefault();
                     List<Street> ModelList = new List<Street>();
@@ -132,7 +134,7 @@ namespace TKGMParsel.Controllers
                     var findParcel = _repoStreet.GetByStreetParsel(model.StreetVal, model.AdaVal.ToString(), model.ParcelVal.ToString());
                     if (findParcel == null)
                     {
-                        var Model = GetResponseJSON($"https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/parsel/{model.StreetVal}/{model.AdaVal}/{model.ParcelVal}").Result;
+                        var Model = GetResponseJSON($"{_configuration.GetSection("TKGMApiURL").GetValue("Parsel", "Parsel")}{model.StreetVal}/{model.AdaVal}/{model.ParcelVal}").Result;
                         if (Model == "")
                         {
                             return Json(null);
